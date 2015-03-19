@@ -11,6 +11,7 @@ namespace yumyum.Controllers
         public ActionResult Index()
         {
             return View();
+
         }
     }
 }
