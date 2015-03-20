@@ -76,9 +76,9 @@ namespace yumyum.Data
             return result.UpdatedExisting;
         }
 
-        public static ObjectId GetNewId()
+        public static string GetNewId()
         {
-            return ObjectId.GenerateNewId();
+            return ObjectId.GenerateNewId().ToString();
         }
     }
 }

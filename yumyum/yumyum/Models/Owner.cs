@@ -7,9 +7,11 @@ using System.Web;
 
 namespace yumyum.Models
 {
+    [BsonIgnoreExtraElements]
     public class Owner
     {
-        public ObjectId Id { get; set; }
+        [BsonId] 
+        public string Id { get; set; }
 
         [BsonElement("Name")]
         public string Name { get; set; }
@@ -25,5 +27,8 @@ namespace yumyum.Models
 
         [BsonElement("Phone")]
         public string Phone { get; set; }
+
+        [BsonElement("LastModified ")]
+        public DateTime LastModified { get; set; } 
     }
 }
