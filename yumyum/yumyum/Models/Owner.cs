@@ -29,6 +29,9 @@ namespace yumyum.Models
         public string Phone { get; set; }
 
         [BsonElement("LastModified ")]
-        public DateTime LastModified { get; set; } 
+        public DateTime LastModified { get; set; }
+
+        [BsonElement("Salt ")]
+        public string Salt { get; set; }
     }
 }
