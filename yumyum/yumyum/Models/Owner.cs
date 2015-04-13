@@ -16,9 +16,6 @@ namespace yumyum.Models
         [BsonElement("Name")]
         public string Name { get; set; }
 
-        [BsonElement("Gender")]
-        public string Gender { get; set; }
-
         [BsonElement("Mail")]
         public string Mail { get; set; }
 

@@ -42,4 +42,29 @@
             </li>
         </ol>
     </section>
+
+    <script type="text/javascript">
+        function AddOwner() {
+            jQuery.support.cors = true;
+            var owner = {
+                Name: 'emmanuel',
+                Mail: 'epena@ia.com.mx',
+                Password: '123456',
+                Phone: '4431937281'
+            };
+
+            $.ajax({
+                url: 'http://localhost:61632/api/v1/owners',
+                type: 'POST',
+                data: JSON.stringify(owner),
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+                    WriteResponse(data);
+                },
+                error: function (x, y, z) {
+                    alert(x + '\n' + y + '\n' + z);
+                }
+            });
+        }
+    </script>
 </div>
