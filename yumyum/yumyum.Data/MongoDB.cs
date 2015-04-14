@@ -64,7 +64,7 @@ namespace yumyum.Data
 
         public bool RemoveItem<T>(string collection, string id)
         {
-            SafeModeResult result = this.mongoDataBase.GetCollection<T>(collection).Remove(Query.EQ("_id", id));
+            var result = this.mongoDataBase.GetCollection<T>(collection).Remove(Query.EQ("_id", id));
             return result.DocumentsAffected == 1;
         }
 
@@ -72,7 +72,7 @@ namespace yumyum.Data
         {
             var _item = GetItemById<T>(collection, Query.EQ("_id", id));
             _item = item;
-            SafeModeResult result = this.mongoDataBase.GetCollection<T>(collection).Save(_item);
+            var result = this.mongoDataBase.GetCollection<T>(collection).Save(_item);
             return result.UpdatedExisting;
         }
 
