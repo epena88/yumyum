@@ -31,12 +31,13 @@ namespace yumyum.Filters
                     var userName = credArray[0];
                     var password = credArray[1];
 
-                    if (IsResourceOwner(userName, actionContext))
-                    {
-                        var currentPrincipal = new GenericPrincipal(new GenericIdentity(userName), null);
-                        Thread.CurrentPrincipal = currentPrincipal;
+                    //if (IsResourceOwner(userName, actionContext))
+                    //{
+                        var identity = new GenericIdentity(userName, actionContext.Request.Headers.Authorization.Scheme);
+                        var principal = new GenericPrincipal(identity, new string[0]);
+                        actionContext.Request.GetRequestContext().Principal = principal;
                         return;
-                    }
+                    //}
                 }
             }
 
@@ -54,18 +55,6 @@ namespace yumyum.Filters
             var credArray = cred.Split(':');
 
             return credArray;
-        }
-
-        private bool IsResourceOwner(string userName, System.Web.Http.Controllers.HttpActionContext actionContext)
-        {
-            var routeData = actionContext.Request.GetRouteData();
-            var resourceUserName = routeData.Values["userName"] as string;
-
-            if (resourceUserName == userName)
-            {
-                return true;
-            }
-            return false;
         }
 
         private void HandleUnauthorizedRequest(System.Web.Http.Controllers.HttpActionContext actionContext)

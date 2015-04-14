@@ -31,6 +31,7 @@ namespace yumyum
             // Para deshabilitar el seguimiento en la aplicación, incluya un comentario o quite la siguiente línea de código
             // Para obtener más información, consulte: http://www.asp.net/web-api
             config.EnableSystemDiagnosticsTracing();
+            
         }
     }
 }

@@ -9,6 +9,7 @@ using yumyum.Filters;
 using yumyum.Models;
 using yumyum.Tools;
 using mdb = yumyum.Data;
+using AttributeRouting;
 
 namespace yumyum.Controllers
 {
@@ -24,10 +25,14 @@ namespace yumyum.Controllers
             return owner;
         }
 
+        [Route("api/v1/owners/oauth")]
         [OwnerAuthorizedAttribute]
-        public Owner Get(string id)
+        public HttpResponseMessage Get(string id)
         {
-            return new Owner();
+            if (User.Identity.IsAuthenticated == true)
+                return new HttpResponseMessage(System.Net.HttpStatusCode.OK);
+            else
+                return new HttpResponseMessage(System.Net.HttpStatusCode.Forbidden);
         }
 
         public List<Owner> Get()
