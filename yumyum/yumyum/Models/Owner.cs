@@ -10,7 +10,7 @@ namespace yumyum.Models
     [BsonIgnoreExtraElements]
     public class Owner
     {
-        [BsonId] 
+        [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
 
         [BsonElement("Name")]
