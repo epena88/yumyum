@@ -1,17 +1,12 @@
-﻿using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
 namespace yumyum.Models
 {
-    [BsonIgnoreExtraElements]
-    public class Restaurant
+    public class NewRestaurantModel
     {
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string Id { get; set; }
         public string MailOwner { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
@@ -24,13 +19,9 @@ namespace yumyum.Models
         public string City { get; set; }
         public string Address { get; set; }
         public string Lat { get; set; }
-        public string Long { get; set; }                
+        public string Long { get; set; }
         public double ShippingCost { get; set; }
         public double ServiceRange { get; set; }
-        public List<Schedule> Schedules { get; set; }
-        public List<Rate> Rates { get; set; }
-        public List<Comment> Comments { get; set; }
-        public List<string> Tags { get; set; }
-        public DateTime CreatedDate { get; set; }
+        public string AccessToken { get; set; }
     }
 }

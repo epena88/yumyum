@@ -1,27 +1,32 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Text;
+using System.Threading.Tasks;
 using System.Web.Http;
-using yumyum.Filters;
 using yumyum.Models;
 using yumyum.Tools;
-using mdb = yumyum.Data;
-using AttributeRouting;
 
 namespace yumyum.Controllers
 {
     public class OwnersController : ApiController
     {
-        public Owner Post(Owner owner)
+        public async Task<Owner> Post(NewOwnerModel model)
         {
-            owner.Id = mdb.MongoDB.GetNewId();
-            owner.LastModified = DateTime.UtcNow;
-            owner.Salt = Crypto.GetSalt();
-            owner.Password = Crypto.GenerateSaltedSHA256(owner.Password, Encoding.UTF8.GetBytes(owner.Salt));
-            new mdb.MongoDB().AddItem<Owner>("owner", owner);
+            var mongoContext = new MongoContext();
+
+            var salt =Crypto.GetSalt();
+
+            var owner = new Owner
+            {
+                LastModified = DateTime.UtcNow,
+                Mail = model.Mail,
+                Name = model.Name,
+                Password = Crypto.GenerateSaltedSHA256(model.Password, Encoding.UTF8.GetBytes(salt)),
+                Phone = model.Phone,
+                Salt = salt
+            };
+
+            await mongoContext.Owners.InsertOneAsync(owner);
+
             return owner;
         }
 
@@ -34,11 +39,5 @@ namespace yumyum.Controllers
         //    else
         //        return new HttpResponseMessage(System.Net.HttpStatusCode.Forbidden);
         //}
-
-        public List<Owner> Get()
-        {
-            List<Owner> owners = new mdb.MongoDB().GetAllItems<Owner>("owner");
-            return owners;
-        }
     }
 }

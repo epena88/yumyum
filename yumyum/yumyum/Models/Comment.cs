@@ -13,7 +13,7 @@ namespace yumyum.Models
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
         public string User { get; set; }
-        public string Comment { get; set; }
+        public string Comments { get; set; }
 
         public DateTime CreatedDate { get; set; }
         
