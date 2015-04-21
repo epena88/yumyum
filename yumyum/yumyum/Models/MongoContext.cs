@@ -10,18 +10,31 @@ namespace yumyum.Models
 {
     public class MongoContext
     {
-        
-        
         public const string OWNERS_COLLECTION_NAME = "owners";
         public const string RESTAURANT_COLLECTION_NAME = "restaurants";
 
         private static readonly IMongoClient _client;
         private static readonly IMongoDatabase _database;
-
+        private static List<MongoServerAddress> servers;
         static MongoContext()
         {
-            var connectionString = string.Format("mongodb://{0}:{1}", ConfigurationSettings.AppSettings["server"].ToString(), ConfigurationSettings.AppSettings["port"].ToString());
-            _client = new MongoClient(connectionString);
+            var databaseName = ConfigurationSettings.AppSettings["databaseName"].ToString();
+            var usr = ConfigurationSettings.AppSettings["usr"].ToString();
+            var pwd = ConfigurationSettings.AppSettings["pwd"].ToString();
+            var serverA = ConfigurationSettings.AppSettings["server"].ToString();
+            var portA = ConfigurationSettings.AppSettings["port"].ToString();
+
+            servers = new List<MongoServerAddress>();
+            servers.Add(new MongoServerAddress(serverA, int.Parse(portA)));
+
+            MongoClientSettings settings = new MongoClientSettings
+            {
+                Credentials = new[] { MongoCredential.CreateMongoCRCredential(databaseName, usr, pwd) },
+                Servers = servers,
+                MaxConnectionPoolSize = 1500
+            };
+
+            _client = new MongoClient(settings);
             _database = _client.GetDatabase(ConfigurationSettings.AppSettings["databaseName"].ToString());
         }
 
