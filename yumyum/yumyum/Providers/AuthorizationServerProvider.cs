@@ -62,7 +62,7 @@ namespace yumyum.Providers
         public override async Task GrantRefreshToken(OAuthGrantRefreshTokenContext context)
         {
             var originalClient = context.Ticket.Properties.Dictionary["as:client_id"];
-            var currentClient = context.ClientId;
+            var currentClient = context.OwinContext.Get<string>("as:client_id");
 
             if (originalClient != currentClient)
             {
@@ -71,8 +71,6 @@ namespace yumyum.Providers
             }
 
             var newId = new ClaimsIdentity(context.Ticket.Identity);
-            newId.AddClaim(new Claim("newClaim", "refreshToken"));
-
             var newTicket = new AuthenticationTicket(newId, context.Ticket.Properties);
             context.Validated(newTicket);
         }
