@@ -10,8 +10,9 @@ namespace yumyum.Models
 {
     public class MongoContext
     {
-        public const string OWNERS_COLLECTION_NAME = "owners";
-        public const string RESTAURANT_COLLECTION_NAME = "restaurants";
+        public const string OWNERS_COLLECTION_NAME = "owner";
+        public const string RESTAURANT_COLLECTION_NAME = "restaurant";
+        public const string MOBILE_CLIENT_COLLECTION_NAME = "client";
 
         private static readonly IMongoClient _client;
         private static readonly IMongoDatabase _database;
@@ -51,6 +52,11 @@ namespace yumyum.Models
         public IMongoCollection<Restaurant> Restaurants
         {
             get { return _database.GetCollection<Restaurant>(RESTAURANT_COLLECTION_NAME); }
+        }
+
+        public IMongoCollection<Client> MobileClient
+        {
+            get { return _database.GetCollection<Client>(MOBILE_CLIENT_COLLECTION_NAME); }
         }
     }
 }

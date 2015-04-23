@@ -21,9 +21,7 @@ namespace yumyum.Providers
                 {
                     if (!string.IsNullOrEmpty(ClientID) && !string.IsNullOrEmpty(SecretKey))
                     {
-                        //Validar Client_ID y Secret_ID
-                        bool isValid = true;
-
+                        bool isValid =await new Models.Client().Validate(ClientID, SecretKey);
                         if (isValid)
                             context.Validated();
                         else
@@ -36,7 +34,7 @@ namespace yumyum.Providers
 
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
-            bool isValid = true;
+            bool isValid = await new Models.Owner().Validate(context.UserName, context.Password);
 
             if (isValid)
             {

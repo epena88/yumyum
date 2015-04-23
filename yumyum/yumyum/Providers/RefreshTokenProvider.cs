@@ -6,8 +6,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
-using yumyum.Xml;
-using yumyum.Helper;
 using System.Security.Claims;
 using System.Collections.Concurrent;
 using System.Web.Helpers;

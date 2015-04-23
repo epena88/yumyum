@@ -75,6 +75,9 @@
     <Reference Include="Microsoft.Owin">
       <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.3.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Owin.Security">
       <HintPath>..\packages\Microsoft.Owin.Security.3.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
     </Reference>
@@ -242,7 +245,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Helper\XMLManager.cs" />
+    <Compile Include="Models\Client.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\MongoContext.cs" />
     <Compile Include="Models\NewOwnerModel.cs" />
@@ -256,7 +259,6 @@
     <Compile Include="Providers\AuthorizationServerProvider.cs" />
     <Compile Include="Providers\RefreshTokenProvider.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="Xml\RefreshToken.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\refresh_tokens.xml" />

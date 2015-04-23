@@ -17,22 +17,28 @@ namespace yumyum
 
         public void Configuration(IAppBuilder app)
         {
-            app.UseOAuthAuthorizationServer(new OAuthAuthorizationServerOptions { 
+            //Generacion del Token
+            app.UseOAuthAuthorizationServer(new OAuthAuthorizationServerOptions
+            {
+                //Solo para desarrollo
                 AllowInsecureHttp = true,
-                TokenEndpointPath = new PathString("/Oauth"),
+
+                TokenEndpointPath = new PathString("/authorize/Oauth"),
                 AccessTokenExpireTimeSpan = TimeSpan.FromHours(1),
+
                 Provider = new AuthorizationServerProvider(),
                 RefreshTokenProvider = new RefreshTokenProvider()
             });
 
+            //Consumo del token
             OAuthBearerOptions = new OAuthBearerAuthenticationOptions
             {
                 AuthenticationType = "Bearer",
-                AuthenticationMode = Microsoft.Owin.Security.AuthenticationMode.Active,
-
+                AuthenticationMode = Microsoft.Owin.Security.AuthenticationMode.Active
             };
 
             app.UseOAuthBearerAuthentication(OAuthBearerOptions);
+
             app.UseWebApi(WebApiConfig.Register());
         }
     }
