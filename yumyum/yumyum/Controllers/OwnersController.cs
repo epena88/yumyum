@@ -9,35 +9,47 @@ namespace yumyum.Controllers
 {
     public class OwnersController : ApiController
     {
-        public async Task<Owner> Post(NewOwnerModel model)
+        public async Task<object> Post(NewOwnerModel model)
         {
-            var mongoContext = new MongoContext();
-
-            var salt =Crypto.GetSalt();
-
-            var owner = new Owner
+            if (ModelState.IsValid)
             {
-                LastModified = DateTime.UtcNow,
-                Mail = model.Mail,
-                Name = model.Name,
-                Password = Crypto.GenerateSaltedSHA256(model.Password, Encoding.UTF8.GetBytes(salt)),
-                Phone = model.Phone,
-                Salt = salt
-            };
+                var mongoContext = new MongoContext();
 
-            await mongoContext.Owners.InsertOneAsync(owner);
+                var salt = Crypto.GetSalt();
 
-            return owner;
+                var owner = new Owner
+                {
+                    LastModified = DateTime.UtcNow,
+                    Mail = model.Mail,
+                    Name = model.Name,
+                    Password = Crypto.GenerateSaltedSHA256(model.Password, Encoding.UTF8.GetBytes(salt)),
+                    Phone = model.Phone,
+                    Salt = salt
+                };
+
+                await mongoContext.Owners.InsertOneAsync(owner);
+
+                return new
+                {
+                    data = new
+                    {
+                        Id = owner.Id,
+                        Mail = owner.Mail,
+                        Name = owner.Name,
+                        Phone = owner.Phone
+                    }
+                };
+            }
+            else
+            {
+                return new
+                {
+                    error = new
+                    {
+
+                    }
+                };
+            }
         }
-
-        //[Route("api/v1/owners/oauth")]
-        //[OwnerAuthorizedAttribute]
-        //public HttpResponseMessage Get(string id)
-        //{
-        //    if (User.Identity.IsAuthenticated == true)
-        //        return new HttpResponseMessage(System.Net.HttpStatusCode.OK);
-        //    else
-        //        return new HttpResponseMessage(System.Net.HttpStatusCode.Forbidden);
-        //}
     }
 }
