@@ -46,7 +46,8 @@ namespace yumyum.Controllers
                 {
                     error = new
                     {
-
+                        ErrorCode = 100,
+                        ErrorName = ""
                     }
                 };
             }
