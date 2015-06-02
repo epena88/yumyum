@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using yumyum.Models;
 using yumyum.Tools;
+using System.Linq;
 
 namespace yumyum.Controllers
 {
@@ -47,7 +48,8 @@ namespace yumyum.Controllers
                     error = new
                     {
                         ErrorCode = 100,
-                        ErrorName = ""
+                        ErrorName = "InvalidOperationException",
+                        ErrorMessage = ModelState.Values.SelectMany(a => a.Errors).Select(a => a.ErrorMessage).ToArray()
                     }
                 };
             }

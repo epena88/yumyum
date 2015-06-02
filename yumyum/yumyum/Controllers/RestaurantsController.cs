@@ -16,7 +16,7 @@ namespace yumyum.Controllers
             var restaurant = new Restaurant
             {
                 Address = model.Address,
-                Category = model.Category,
+                //Category = model.Category,
                 City = model.City,
                 Comments = new List<Comment>(),
                 Country = model.Country,

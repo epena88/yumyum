@@ -11,7 +11,7 @@ namespace yumyum.Models
         public string Name { get; set; }
         public string Description { get; set; }
         public string Phone { get; set; }
-        public string Category { get; set; }
+        //public string Category { get; set; }
         public string Logo { get; set; }
         public int DeliveryTime { get; set; }
         public string Country { get; set; }
